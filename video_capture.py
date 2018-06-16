@@ -7,17 +7,17 @@ import os
     Module to capture videos from Webcam and saving the .mpg files in defined directory
     
     Procedure:
-    1) Record the video using opencv2 methods in .avi format
-    2) Convert the .avi files to .mpg using ffmpeg
-    3) Save .mpg files in the defined directory with defined file name
-    4) Delete the temporary recorded .avi file.
+        1) Record the video using opencv2 methods in .avi format
+        2) Convert the .avi files to .mpg using ffmpeg
+        3) Save .mpg files in the defined directory with defined file name
+        4) Delete the temporary recorded .avi file.
     
     Directories:
-    1) basedir : current working directory
-    2) basedir/temp : directory for storing the captured .avi file as output.avi
-    3) basedir/date/channel : directory to save the .mpg file as date_time_channel.mpg
-    4) basedir/log.txt : log file to log the conversion process
-"""
+        1) basedir : current working directory
+        2) basedir/temp : directory for storing the captured .avi file as output.avi
+        3) basedir/date/channel/time : directory to save the .mpg file as date_time_channel.mpg
+        4) basedir/date/channel/time/conversion_log.txt : log file to log the conversion process
+"""     
 
 base_dir = os.getcwd()
 
@@ -58,7 +58,8 @@ def covert_video_to_mpg(video_to_convert):
     command = static_command1 + video_to_convert + static_command2 + path_to_save_in  # command to execute
 
     # Opening log file for logging the conversion
-    log_file, status = open('log.txt', 'w'), True
+    log_file_path = os.path.join(full_time_path, 'conversion_log.txt')
+    log_file, status = open(log_file_path, 'w'), True
     try:
         # creating subprocess to run the command in shell to convert
         subprocess.check_call(command, shell=True, stderr=log_file)
